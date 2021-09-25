@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 7af72793d89cdde46bc7a52721f88c01
+guid: 369c7ae578c02684883c7322502d9dd1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6583736752923023005
-    second: Ghost1_Move_Left_0
+      213: 5885060255040666504
+    second: Recovering Ghost_0
   - first:
-      213: 1369079976948106860
-    second: Ghost1_Move_Left_1
+      213: 3951000455896174929
+    second: Recovering Ghost_1
   - first:
-      213: -4433520752455892120
-    second: Ghost1_Move_Left_2
+      213: 5941110869836285560
+    second: Recovering Ghost_2
   - first:
-      213: 369702981200513197
-    second: Ghost1_Move_Left_3
+      213: -5266152434846837666
+    second: Recovering Ghost_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ghost1_Move_Left_0
+      name: Recovering Ghost_0
       rect:
         serializedVersion: 2
         x: 36
@@ -117,14 +117,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9619a4d1b12e5b50800000000000000
-      internalID: 6583736752923023005
+      spriteID: 88bf77f1f1feba150800000000000000
+      internalID: 5885060255040666504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ghost1_Move_Left_1
+      name: Recovering Ghost_1
       rect:
         serializedVersion: 2
         x: 164
@@ -138,35 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c66871f3cf2fff210800000000000000
-      internalID: 1369079976948106860
+      spriteID: 15119193bf5c4d630800000000000000
+      internalID: 3951000455896174929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ghost1_Move_Left_2
-      rect:
-        serializedVersion: 2
-        x: 292
-        y: 164
-        width: 56
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8634b8d8d58f872c0800000000000000
-      internalID: -4433520752455892120
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ghost1_Move_Left_3
+      name: Recovering Ghost_2
       rect:
         serializedVersion: 2
         x: 36
@@ -180,8 +159,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da80cd217e2712500800000000000000
-      internalID: 369702981200513197
+      spriteID: 876cdc7dbd0137250800000000000000
+      internalID: 5941110869836285560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recovering Ghost_3
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 36
+        width: 56
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5455e3034edae6b0800000000000000
+      internalID: -5266152434846837666
       vertices: []
       indices: 
       edges: []
