@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: 849aabc4c87f45147a9ac6852ceadf6f
+guid: abbb8064a4819e14396f0489e28a82ed
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -3273249755285934358
-    second: Power_Pellet 1_0
-  - first:
-      213: -7664320242891093035
-    second: Power_Pellet 1_1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,13 +91,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Power_Pellet 1_0
+      name: Wall_Segments_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 36
-        width: 56
-        height: 56
+        x: 32
+        y: 160
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +105,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aee2c03a0b41392d0800000000000000
-      internalID: -3273249755285934358
+      spriteID: 51b7508b6d9e69070800000000000000
+      internalID: 8112928887174167317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Power_Pellet 1_1
+      name: Wall_Segments_1
       rect:
         serializedVersion: 2
-        x: 164
-        y: 36
-        width: 56
-        height: 56
+        x: 160
+        y: 160
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +126,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5db04ada85dd2a590800000000000000
-      internalID: -7664320242891093035
+      spriteID: c182ae42a0e2ad430800000000000000
+      internalID: 3808407055999051804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Segments_2
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 160
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d96e39f83478151a0800000000000000
+      internalID: -6822523236248197475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Segments_3
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc5844f44acdd8510800000000000000
+      internalID: 1553140044775327183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Segments_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3514def24c288e150800000000000000
+      internalID: 5902111090798313811
       vertices: []
       indices: 
       edges: []
