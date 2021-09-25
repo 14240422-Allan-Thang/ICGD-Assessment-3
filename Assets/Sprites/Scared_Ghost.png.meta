@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 7af72793d89cdde46bc7a52721f88c01
+guid: 4fc83da849c00c847a774dc7ceed90ac
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6583736752923023005
-    second: Ghost1_Move_Left_0
+      213: -5375493905943534524
+    second: Scared_Ghost_0
   - first:
-      213: 1369079976948106860
-    second: Ghost1_Move_Left_1
+      213: -7852858194912270360
+    second: Scared_Ghost_1
   - first:
-      213: -4433520752455892120
-    second: Ghost1_Move_Left_2
+      213: 6078733144506481390
+    second: Scared_Ghost_2
   - first:
-      213: 369702981200513197
-    second: Ghost1_Move_Left_3
+      213: 6551026066073065885
+    second: Scared_Ghost_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ghost1_Move_Left_0
+      name: Scared_Ghost_0
       rect:
         serializedVersion: 2
         x: 36
@@ -117,14 +117,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9619a4d1b12e5b50800000000000000
-      internalID: 6583736752923023005
+      spriteID: 44465fbe5c86665b0800000000000000
+      internalID: -5375493905943534524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ghost1_Move_Left_1
+      name: Scared_Ghost_1
       rect:
         serializedVersion: 2
         x: 164
@@ -138,14 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c66871f3cf2fff210800000000000000
-      internalID: 1369079976948106860
+      spriteID: 8e72db4f31b050390800000000000000
+      internalID: -7852858194912270360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ghost1_Move_Left_2
+      name: Scared_Ghost_2
       rect:
         serializedVersion: 2
         x: 292
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8634b8d8d58f872c0800000000000000
-      internalID: -4433520752455892120
+      spriteID: eeab3b2a69ffb5450800000000000000
+      internalID: 6078733144506481390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ghost1_Move_Left_3
+      name: Scared_Ghost_3
       rect:
         serializedVersion: 2
         x: 36
@@ -180,8 +180,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da80cd217e2712500800000000000000
-      internalID: 369702981200513197
+      spriteID: d991c9e8f7be9ea50800000000000000
+      internalID: 6551026066073065885
       vertices: []
       indices: 
       edges: []
