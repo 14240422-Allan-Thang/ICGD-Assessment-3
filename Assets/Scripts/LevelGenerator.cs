@@ -23,19 +23,14 @@ public class LevelGenerator : MonoBehaviour
         { 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0 }, 
     };
     private Vector3 topLeftCorner;
-    private bool topRow;
-    private bool middleRow;
-    private bool bottomRow;
-    private bool firstCol;
-    private bool middleCol;
-    private bool lastCol;
-    enum Position { TopLeft, TopMiddle, TopRight, MiddleLeft, MiddleMiddle, MiddleRight, BottomLeft, BottomMiddle, BottomRight };
+    private GameObject[][] tiles;
+    enum Position { TopLeft, NoneAbove, NoneLeft, Free };
+    private Position pos;
     [SerializeField] private GameObject level1;
     [SerializeField] private GameObject[] mapTiles;
     // Start is called before the first frame update
     void Start()
     {
-        Position pos;
         Destroy(level1);
         int height = levelMap.GetLength(0);
         int width = levelMap.GetLength(1);
@@ -43,78 +38,400 @@ public class LevelGenerator : MonoBehaviour
         pos = Position.TopLeft;
         for (int i = 0; i < height; i++)
         {
-            if (i == height - 1) pos = Position.BottomLeft;
             for (int j = 0; j < width; j++)
             {
-                if (j == width - 1)
-                {
-                    if (pos == Position.TopMiddle) pos = Position.TopRight;
-                    else if (pos == Position.MiddleMiddle) pos = Position.MiddleRight;
-                    else if (pos == Position.BottomMiddle) pos = Position.BottomRight;
-
-                }
                 GenerateTile(levelMap[i, j], j, i, pos);
-                if (pos == Position.TopLeft) pos = Position.TopMiddle;
-                else if (pos == Position.MiddleLeft) pos = Position.MiddleMiddle;
-                else if (pos == Position.BottomLeft) pos = Position.BottomMiddle;
-                
+                if (pos == Position.TopLeft) pos = Position.NoneAbove;
+                else if (pos == Position.NoneLeft) pos = Position.Free;
             }
-            pos = Position.MiddleLeft;
+            pos = Position.NoneLeft;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
- 
+    }
 
     void GenerateTile(int type, int x, int y, Position pos)
     {
         if (type == 0) return;
-        Instantiate(mapTiles[type - 1], topLeftCorner + new Vector3(x, -y, 0), RotateTile(type, x, y, pos));
+        Debug.Log("Before Instantiate");
+        tiles[x][y] = Instantiate(mapTiles[type - 1], topLeftCorner + new Vector3(x, -y, 0), RotateTile(type, x, y, pos));
+        Debug.Log("After Instantiate");
     }
 
     Quaternion RotateTile(int type, int x, int y, Position pos)
     {
+        bool left;
+        bool up;
         if (pos == Position.TopLeft)
         {
             return Quaternion.identity;
         }
-        if (pos == Position.TopMiddle)
+        else if (pos == Position.NoneAbove)
         {
-            return Quaternion.identity;
+            if (type == 1)
+            {
+                left = CheckLeft(type, x, y);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                else return Quaternion.identity;
+            }
+            else if (type == 2)
+            {
+                left = CheckLeft(type, x, y);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else return Quaternion.identity;
+            }
+            else if (type == 3)
+            {
+                left = CheckLeft(type, x, y);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                else return Quaternion.identity;
+            }
+            else if (type == 4)
+            {
+                left = CheckLeft(type, x, y);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else return Quaternion.identity;
+            }
+            else
+            {
+                return Quaternion.identity;
+            }
         }
-        if (pos == Position.TopRight)
+        else if (pos == Position.NoneLeft)
         {
-            return Quaternion.identity;
+            if (type == 1)
+            {
+                up = CheckAbove(type, x, y);
+                if (up) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else return Quaternion.identity;
+            }
+            else if (type == 2)
+            {
+                up = CheckAbove(type, x, y);
+                if (up) return Quaternion.identity;
+                else return Quaternion.Euler(new Vector3(0, 0, 90));
+            }
+            else if (type == 3)
+            {
+                up = CheckAbove(type, x, y);
+                if (up) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else return Quaternion.identity;
+            }
+            else if (type == 4)
+            {
+                up = CheckAbove(type, x, y);
+                if (up) return Quaternion.identity;
+                else return Quaternion.Euler(new Vector3(0, 0, 90));
+            }
+            else
+            {
+                return Quaternion.Euler(new Vector3(0, 0, 90));
+            }
         }
-        if (pos == Position.MiddleLeft)
+        else
         {
-            return Quaternion.identity;
+            if (type == 1)
+            {
+                up = CheckAbove(type, x, y);
+                left = CheckLeft(type, x, y);
+                if (up && left) return Quaternion.Euler(new Vector3(0, 0, 180));
+                else if (up && !left) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else if (!up && left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                else return Quaternion.identity;
+            }
+            else if (type == 2)
+            {
+                left = CheckLeft(type, x, y);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                else return Quaternion.identity;
+            }
+            else if (type == 3)
+            {
+                up = CheckAbove(type, x, y);
+                left = CheckLeft(type, x, y);
+                if (up && left) return Quaternion.Euler(new Vector3(0, 0, 180));
+                else if (up && !left) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else if (!up && left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                else return Quaternion.identity;
+            }
+            else if (type == 4)
+            {
+                left = CheckLeft(type, x, y);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                else return Quaternion.identity;
+            }
+            else
+            {
+                type = 7;
+                left = CheckLeft(type, x, y);
+                up = CheckAbove(type, x, y);
+                bool outsideCheck = false;
+                switch (levelMap[x - 1, y])
+                {
+                    case 1:
+                        if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) outsideCheck = true; break;
+                    case 2:
+                        if (tiles[x - 1][y].transform.rotation == Quaternion.identity) outsideCheck = true; break;
+                    case 7:
+                        if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == 180) outsideCheck = true; break;
+                    default:
+                        outsideCheck = false; break;
+                }
+                if (!up) return Quaternion.identity;
+                else if (!left) return Quaternion.Euler(new Vector3(0, 0, 90));
+                else if (outsideCheck)
+                {
+                    return Quaternion.Euler(new Vector3(0, 0, -90));
+                }
+                else return Quaternion.Euler(new Vector3(0, 0, 180));
+
+
+            }
         }
-        if (pos == Position.MiddleMiddle)
-        {
-            return Quaternion.identity;
-        }
-        if (pos == Position.MiddleRight)
-        {
-            return Quaternion.identity;
-        }
-        if (pos == Position.BottomLeft)
-        {
-            return Quaternion.identity;
-        }
-        if (pos == Position.BottomMiddle)
-        {
-            return Quaternion.identity;
-        }
-        if (pos == Position.BottomRight)
-        {
-            return Quaternion.identity;
-        }
-        return Quaternion.identity;
     }
+
+    bool CheckAbove(int type, int x, int y)
+    {
+        if (type == 1)
+        {
+            switch (levelMap[x - 1, y])
+            {
+                case 1:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                case 2:
+                    return true;
+                case 7:
+                    if (tiles[x - 1][y].transform.rotation.eulerAngles.z == 90 || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                default:
+                    return false;
+            }
+        }
+        else if (type == 2)
+        {
+            switch (levelMap[x - 1, y])
+            {
+                case 1:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                case 2:
+                    return true;
+                case 7:
+                    if (tiles[x - 1][y].transform.rotation.eulerAngles.z == 90 || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                default:
+                    return false;
+            }
+        }
+        else if (type == 3)
+        {
+            switch (levelMap[x - 1, y])
+            {
+                case 3:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                case 4:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                case 7:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                default:
+                    return false;
+            }
+        }
+        else if (type == 4)
+        {
+            switch (levelMap[x - 1, y])
+            {
+                case 3:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                case 4:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                case 7:
+                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                default:
+                    return false;
+
+            }
+        }
+        return false;
+    }
+    bool CheckLeft(int type, int x, int y)
+    {
+        if (type == 1)
+        {
+            switch (levelMap[x, y - 1])
+            {
+                case 1:
+                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                case 2:
+                    return true;
+                case 7:
+                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 180) return true; break;
+                default:
+                    return false;
+            }
+        }
+        else if (type == 2)
+        {
+            switch (levelMap[x, y - 1])
+            {
+                case 1:
+                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                case 2:
+                    return true;
+                case 7:
+                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 180) return true; break;
+                default:
+                    return false;
+            }
+        }
+        else if (type == 3)
+        {
+            switch (levelMap[x, y - 1])
+            {
+                case 3:
+                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                case 4:
+                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                case 7:
+                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                default:
+                    return false;
+            }
+        }
+        else if (type == 4)
+        {
+            switch (levelMap[x, y - 1])
+            {
+                case 3:
+                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                case 4:
+                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                case 7:
+                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                default:
+                    return false;
+
+            }
+        }
+        return false;
+    }
+
+    //bool CheckAbove(int type, int x, int y)
+    //{
+    //    if (type == 1)
+    //    {
+    //        if (levelMap[x - 1, y] == 2) return true;
+    //    }
+    //    else if (type == 2)
+    //    {
+    //        if (CheckTargetWithRotation(type, levelMap[x - 1, y], x, y)) return true;
+    //    }
+    //    else if (type == 3)
+    //    {
+    //        if (levelMap[x - 1, y] == *) return true;
+    //    }
+    //    else if (type == 4)
+    //    {
+    //        if (levelMap[x - 1, y] == *) return true;
+    //    }
+    //    else if (type == 7)
+    //    {
+    //        if (levelMap[x - 1, y] == *) return true;
+    //    }
+    //    return false;
+    //}
+
+    //bool CheckBelow(int type, int x, int y)
+    //{
+    //    if (type == 1)
+    //    {
+    //        if (levelMap[x - 1, y] == 2) return true;
+    //    }
+    //    else if (type == 2)
+    //    {
+    //        if (CheckTarget(type, levelMap[x - 1, y])) return true;
+    //    }
+    //    else if (type == 3)
+    //    {
+    //        if (levelMap[x - 1, y] == *) return true;
+    //    }
+    //    else if (type == 4)
+    //    {
+    //        if (levelMap[x - 1, y] == *) return true;
+    //    }
+    //    else if (type == 7)
+    //    {
+    //        if (levelMap[x - 1, y] == *) return true;
+    //    }
+    //    return false;
+    //}
+
+    //bool CheckTarget(int type, int target)
+    //{
+    //    if (type == 1)
+    //    {
+    //        if (target == 2) return true;
+    //    }
+    //    else if (type == 2)
+    //    {
+    //        switch (target)
+    //        {
+    //            case 1:
+    //            case 2:
+    //            case 7:
+    //                return true;
+    //        }
+    //    }
+    //    else if (type == 3)
+    //    {
+    //        switch(target)
+    //        {
+    //            case 
+    //        }
+    //        return false;
+    //    }
+    //    else if (type == 4)
+    //    {
+    //        return false;
+    //    }
+    //    else if (type == 7)
+    //    {
+    //        return false;
+    //    }
+    //}
+
+    //bool CheckTargetWithRotation(int type, int target, int x, int y)
+    //{
+    //    if (type == 1)
+    //    {
+    //        if (target == 2) return true;
+    //    }
+    //    else if (type == 2)
+    //    {
+    //        switch (target)
+    //        {
+    //            case 1:
+    //            case 2:
+    //            case 7:
+    //                return true;
+    //        }
+    //    }
+    //    else if (type == 3)
+    //    {
+    //        switch (target)
+    //        {
+    //            case
+    //        }
+    //    }
+    //    else if (type == 4)
+    //    {
+    //        return false;
+    //    }
+    //    else if (type == 7)
+    //    {
+    //        return false;
+    //    }
+    //    return false;
+    //}
 }
