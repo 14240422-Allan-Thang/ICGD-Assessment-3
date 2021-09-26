@@ -10,6 +10,7 @@ public class Mover : MonoBehaviour
     private Vector3 topRight;
     private Vector3 bottomLeft;
     private Vector3 bottomRight;
+    private float durationMod;
     [SerializeField]
     private GameObject item;
 
@@ -23,6 +24,7 @@ public class Mover : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        durationMod = 1.5f / Vector3.Distance(topLeft, topRight);
         tweener = GetComponent<Tweener>();
         Reset();
     }
@@ -34,25 +36,29 @@ public class Mover : MonoBehaviour
         {
             endPos = bottomRight;
             SetRotation(0);
-            tweener.AddTween(item.transform, item.transform.position, endPos, 1.5f);
+            float dist = Vector3.Distance(endPos, topRight);
+            tweener.AddTween(item.transform, item.transform.position, endPos, dist*durationMod);
         }
         else if (item.transform.position == bottomRight)
         {
             endPos = bottomLeft;
             SetRotation(-90);
-            tweener.AddTween(item.transform, item.transform.position, endPos, 1.5f);
+            float dist = Vector3.Distance(endPos, bottomRight);
+            tweener.AddTween(item.transform, item.transform.position, endPos, dist * durationMod);
         }
         else if (item.transform.position == bottomLeft)
         {
             endPos = topLeft;
             SetRotation(180);
-            tweener.AddTween(item.transform, item.transform.position, endPos, 1.5f);
+            float dist = Vector3.Distance(endPos, bottomLeft);
+            tweener.AddTween(item.transform, item.transform.position, endPos, dist * durationMod);
         }
         else if (item.transform.position == topLeft)
         {
             endPos = topRight;
             SetRotation(90);
-            tweener.AddTween(item.transform, item.transform.position, endPos, 1.5f);
+            float dist = Vector3.Distance(endPos, topLeft);
+            tweener.AddTween(item.transform, item.transform.position, endPos, dist * durationMod);
         }
     }
 
