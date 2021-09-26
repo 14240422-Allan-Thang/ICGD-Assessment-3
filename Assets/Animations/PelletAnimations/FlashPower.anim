@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlashPellet
+  m_Name: FlashPower
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -8357494700477734146, guid: 1edd69c903d4a3f459ddb70a6a861c5e, type: 3}
+      value: {fileID: -3273249755285934358, guid: 849aabc4c87f45147a9ac6852ceadf6f, type: 3}
     - time: 0.2
-      value: {fileID: 3043844852662146109, guid: 1edd69c903d4a3f459ddb70a6a861c5e, type: 3}
+      value: {fileID: -7664320242891093035, guid: 849aabc4c87f45147a9ac6852ceadf6f, type: 3}
+    - time: 0.4
+      value: {fileID: -2077760981032839843, guid: 849aabc4c87f45147a9ac6852ceadf6f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,14 +44,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -8357494700477734146, guid: 1edd69c903d4a3f459ddb70a6a861c5e, type: 3}
-    - {fileID: 3043844852662146109, guid: 1edd69c903d4a3f459ddb70a6a861c5e, type: 3}
+    - {fileID: -3273249755285934358, guid: 849aabc4c87f45147a9ac6852ceadf6f, type: 3}
+    - {fileID: -7664320242891093035, guid: 849aabc4c87f45147a9ac6852ceadf6f, type: 3}
+    - {fileID: -2077760981032839843, guid: 849aabc4c87f45147a9ac6852ceadf6f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

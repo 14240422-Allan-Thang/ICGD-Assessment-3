@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Pac
   - Dead
+  - Grid
+  - Tilemap
   layers:
   - Default
   - TransparentFX
