@@ -16,37 +16,7 @@ public class PacWalk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (movable) { 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                SetRotation(180);
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                SetRotation(-90);
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                SetRotation(90);
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                SetRotation(0);
-            }
-            // Force Death with Space
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                animatorController.SetBool("IsWalking", false);
-                animatorController.SetTrigger("Die");
-                movable = false;
-            }
-        }
-        // Reset on Return to see animations again after death
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Reset();
-
-        }
+        
     }
 
     private void SetRotation(int zRotation)
@@ -56,9 +26,7 @@ public class PacWalk : MonoBehaviour
 
     private void Reset()
     {
-        animatorController.SetBool("IsWalking", true);
         SetRotation(0);
-        movable = true;
-        animatorController.SetTrigger("Reset");
+        gameObject.transform.position = new Vector3();
     }
 }
