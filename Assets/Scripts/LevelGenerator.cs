@@ -23,7 +23,7 @@ public class LevelGenerator : MonoBehaviour
         { 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0 }, 
     };
     private Vector3 topLeftCorner;
-    private GameObject[][] tiles;
+    private GameObject[,] tiles;
     enum Position { TopLeft, NoneAbove, NoneLeft, Free };
     private Position pos;
     [SerializeField] private GameObject level1;
@@ -34,15 +34,16 @@ public class LevelGenerator : MonoBehaviour
         Destroy(level1);
         int height = levelMap.GetLength(0);
         int width = levelMap.GetLength(1);
+        tiles = new GameObject[height, width];
         topLeftCorner = new Vector3(width * -1.0f + 0.5f, height - 0.5f, 1.0f);
         pos = Position.TopLeft;
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                GenerateTile(levelMap[i, j], j, i, pos);
+                GenerateTile(levelMap[i, j], i, j, pos);
                 if (pos == Position.TopLeft) pos = Position.NoneAbove;
-                else if (pos == Position.NoneLeft) pos = Position.Free;
+                if (pos == Position.NoneLeft) pos = Position.Free;
             }
             pos = Position.NoneLeft;
         }
@@ -54,15 +55,13 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
-    void GenerateTile(int type, int x, int y, Position pos)
+    void GenerateTile(int type, int i, int j, Position pos)
     {
         if (type == 0) return;
-        Debug.Log("Before Instantiate");
-        tiles[x][y] = Instantiate(mapTiles[type - 1], topLeftCorner + new Vector3(x, -y, 0), RotateTile(type, x, y, pos));
-        Debug.Log("After Instantiate");
+        tiles[i, j] = Instantiate(mapTiles[type - 1], topLeftCorner + new Vector3(j, -i, 0), RotateTile(type, i, j, pos));
     }
 
-    Quaternion RotateTile(int type, int x, int y, Position pos)
+    Quaternion RotateTile(int type, int i, int j, Position pos)
     {
         bool left;
         bool up;
@@ -74,25 +73,25 @@ public class LevelGenerator : MonoBehaviour
         {
             if (type == 1)
             {
-                left = CheckLeft(type, x, y);
+                left = CheckLeft(type, i, j);
                 if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
                 else return Quaternion.identity;
             }
             else if (type == 2)
             {
-                left = CheckLeft(type, x, y);
+                left = CheckLeft(type, i, j);
                 if (left) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else return Quaternion.identity;
             }
             else if (type == 3)
             {
-                left = CheckLeft(type, x, y);
+                left = CheckLeft(type, i, j);
                 if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
                 else return Quaternion.identity;
             }
             else if (type == 4)
             {
-                left = CheckLeft(type, x, y);
+                left = CheckLeft(type, i, j);
                 if (left) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else return Quaternion.identity;
             }
@@ -105,25 +104,25 @@ public class LevelGenerator : MonoBehaviour
         {
             if (type == 1)
             {
-                up = CheckAbove(type, x, y);
+                up = CheckAbove(type, i, j);
                 if (up) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else return Quaternion.identity;
             }
             else if (type == 2)
             {
-                up = CheckAbove(type, x, y);
+                up = CheckAbove(type, i, j);
                 if (up) return Quaternion.identity;
                 else return Quaternion.Euler(new Vector3(0, 0, 90));
             }
             else if (type == 3)
             {
-                up = CheckAbove(type, x, y);
+                up = CheckAbove(type, i, j);
                 if (up) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else return Quaternion.identity;
             }
             else if (type == 4)
             {
-                up = CheckAbove(type, x, y);
+                up = CheckAbove(type, i, j);
                 if (up) return Quaternion.identity;
                 else return Quaternion.Euler(new Vector3(0, 0, 90));
             }
@@ -136,8 +135,8 @@ public class LevelGenerator : MonoBehaviour
         {
             if (type == 1)
             {
-                up = CheckAbove(type, x, y);
-                left = CheckLeft(type, x, y);
+                up = CheckAbove(type, i, j);
+                left = CheckLeft(type, i, j);
                 if (up && left) return Quaternion.Euler(new Vector3(0, 0, 180));
                 else if (up && !left) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else if (!up && left) return Quaternion.Euler(new Vector3(0, 0, -90));
@@ -145,14 +144,14 @@ public class LevelGenerator : MonoBehaviour
             }
             else if (type == 2)
             {
-                left = CheckLeft(type, x, y);
+                left = CheckLeft(type, i, j);
                 if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
                 else return Quaternion.identity;
             }
             else if (type == 3)
             {
-                up = CheckAbove(type, x, y);
-                left = CheckLeft(type, x, y);
+                up = CheckAbove(type, i, j);
+                left = CheckLeft(type, i, j);
                 if (up && left) return Quaternion.Euler(new Vector3(0, 0, 180));
                 else if (up && !left) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else if (!up && left) return Quaternion.Euler(new Vector3(0, 0, -90));
@@ -160,24 +159,24 @@ public class LevelGenerator : MonoBehaviour
             }
             else if (type == 4)
             {
-                left = CheckLeft(type, x, y);
-                if (left) return Quaternion.Euler(new Vector3(0, 0, -90));
+                left = CheckLeft(type, i, j);
+                if (left) return Quaternion.Euler(new Vector3(0, 0, 90));
                 else return Quaternion.identity;
             }
             else
             {
                 type = 7;
-                left = CheckLeft(type, x, y);
-                up = CheckAbove(type, x, y);
+                left = CheckLeft(type, i, j);
+                up = CheckAbove(type, i, j);
                 bool outsideCheck = false;
-                switch (levelMap[x - 1, y])
+                switch (levelMap[i - 1, j])
                 {
                     case 1:
-                        if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) outsideCheck = true; break;
+                        if (tiles[i - 1, j].transform.rotation == Quaternion.identity || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) outsideCheck = true; break;
                     case 2:
-                        if (tiles[x - 1][y].transform.rotation == Quaternion.identity) outsideCheck = true; break;
+                        if (tiles[i - 1, j].transform.rotation == Quaternion.identity) outsideCheck = true; break;
                     case 7:
-                        if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == 180) outsideCheck = true; break;
+                        if (tiles[i - 1, j].transform.rotation == Quaternion.identity || tiles[i - 1, j].transform.rotation.eulerAngles.z == 180) outsideCheck = true; break;
                     default:
                         outsideCheck = false; break;
                 }
@@ -194,60 +193,60 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    bool CheckAbove(int type, int x, int y)
+    bool CheckAbove(int type, int i, int j)
     {
         if (type == 1)
         {
-            switch (levelMap[x - 1, y])
+            switch (levelMap[i - 1, j])
             {
                 case 1:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) return true; break;
                 case 2:
                     return true;
                 case 7:
-                    if (tiles[x - 1][y].transform.rotation.eulerAngles.z == 90 || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                    if (tiles[i - 1, j].transform.rotation.eulerAngles.z == 90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) return true; break;
                 default:
                     return false;
             }
         }
         else if (type == 2)
         {
-            switch (levelMap[x - 1, y])
+            switch (levelMap[i - 1, j])
             {
                 case 1:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) return true; break;
                 case 2:
                     return true;
                 case 7:
-                    if (tiles[x - 1][y].transform.rotation.eulerAngles.z == 90 || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                    if (tiles[i - 1, j].transform.rotation.eulerAngles.z == 90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) return true; break;
                 default:
                     return false;
             }
         }
         else if (type == 3)
         {
-            switch (levelMap[x - 1, y])
+            switch (levelMap[i - 1, j])
             {
                 case 3:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) return true; break;
                 case 4:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity) return true; break;
                 case 7:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity) return true; break;
                 default:
                     return false;
             }
         }
         else if (type == 4)
         {
-            switch (levelMap[x - 1, y])
+            switch (levelMap[i - 1, j])
             {
                 case 3:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity || tiles[x - 1][y].transform.rotation.eulerAngles.z == -90) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity || tiles[i - 1, j].transform.rotation.eulerAngles.z == -90 || tiles[i - 1, j].transform.rotation.eulerAngles.z == 270) return true; break;
                 case 4:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity) return true; break;
                 case 7:
-                    if (tiles[x - 1][y].transform.rotation == Quaternion.identity) return true; break;
+                    if (tiles[i - 1, j].transform.rotation == Quaternion.identity) return true; break;
                 default:
                     return false;
 
@@ -255,60 +254,60 @@ public class LevelGenerator : MonoBehaviour
         }
         return false;
     }
-    bool CheckLeft(int type, int x, int y)
+    bool CheckLeft(int type, int i, int j)
     {
         if (type == 1)
         {
-            switch (levelMap[x, y - 1])
+            switch (levelMap[i, j - 1])
             {
                 case 1:
-                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation == Quaternion.identity || tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 case 2:
                     return true;
                 case 7:
-                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 180) return true; break;
+                    if (tiles[i, j - 1].transform.rotation == Quaternion.identity || tiles[i, j - 1].transform.rotation.eulerAngles.z == 180) return true; break;
                 default:
                     return false;
             }
         }
         else if (type == 2)
         {
-            switch (levelMap[x, y - 1])
+            switch (levelMap[i, j - 1])
             {
                 case 1:
-                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation == Quaternion.identity || tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 case 2:
                     return true;
                 case 7:
-                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 180) return true; break;
+                    if (tiles[i, j - 1].transform.rotation == Quaternion.identity || tiles[i, j - 1].transform.rotation.eulerAngles.z == 180) return true; break;
                 default:
                     return false;
             }
         }
         else if (type == 3)
         {
-            switch (levelMap[x, y - 1])
+            switch (levelMap[i, j - 1])
             {
                 case 3:
-                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation == Quaternion.identity || tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 case 4:
-                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 case 7:
-                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 default:
                     return false;
             }
         }
         else if (type == 4)
         {
-            switch (levelMap[x, y - 1])
+            switch (levelMap[i, j - 1])
             {
                 case 3:
-                    if (tiles[x][y - 1].transform.rotation == Quaternion.identity || tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation == Quaternion.identity || tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 case 4:
-                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 case 7:
-                    if (tiles[x][y - 1].transform.rotation.eulerAngles.z == 90) return true; break;
+                    if (tiles[i, j - 1].transform.rotation.eulerAngles.z == 90) return true; break;
                 default:
                     return false;
 
