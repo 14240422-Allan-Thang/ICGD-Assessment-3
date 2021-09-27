@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip[] songs;
+    public AudioClip[] clips;
     private bool introPlayed;
     // Start is called before the first frame update
     void Start()
@@ -17,13 +17,13 @@ public class AudioManager : MonoBehaviour
     {
         if (!introPlayed)
         {
-            GetComponent<AudioSource>().clip = songs[0];
+            GetComponent<AudioSource>().clip = clips[0];
             GetComponent<AudioSource>().Play();
             introPlayed = true;
         }
         if (introPlayed && !GetComponent<AudioSource>().isPlaying) 
         { 
-            GetComponent<AudioSource>().clip = songs[1];
+            GetComponent<AudioSource>().clip = clips[1];
             GetComponent<AudioSource>().Play();
         }
     }

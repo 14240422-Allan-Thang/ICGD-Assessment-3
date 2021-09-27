@@ -26,7 +26,7 @@ public class LevelGenerator : MonoBehaviour
     private int[,] fullMap;
     private int width;
     private int height;
-    private bool noBelow;
+    //private bool noBelow;
     enum Position { TopLeft, NoneAbove, NoneLeft, Free };
     private Position pos;
     [SerializeField] private GameObject level1;
@@ -82,7 +82,7 @@ public class LevelGenerator : MonoBehaviour
                 if (pos == Position.NoneLeft) pos = Position.Free;
             }
             pos = Position.NoneLeft;
-            if (i == height * 2 - 2) noBelow = true;
+            //if (i == height * 2 - 2) noBelow = true;
         }
     }
     // Update is called once per frame
@@ -390,127 +390,9 @@ public class LevelGenerator : MonoBehaviour
         }
         return false;
     }
-    bool CheckBelow(int type, int i, int j)
-    {
-        if (fullMap[i + 1, j] == 4) return true;
-        return false;
-    }
-
-    //bool CheckAbove(int type, int x, int y)
+    //bool CheckBelow(int type, int i, int j)
     //{
-    //    if (type == 1)
-    //    {
-    //        if (levelMap[x - 1, y] == 2) return true;
-    //    }
-    //    else if (type == 2)
-    //    {
-    //        if (CheckTargetWithRotation(type, levelMap[x - 1, y], x, y)) return true;
-    //    }
-    //    else if (type == 3)
-    //    {
-    //        if (levelMap[x - 1, y] == *) return true;
-    //    }
-    //    else if (type == 4)
-    //    {
-    //        if (levelMap[x - 1, y] == *) return true;
-    //    }
-    //    else if (type == 7)
-    //    {
-    //        if (levelMap[x - 1, y] == *) return true;
-    //    }
-    //    return false;
-    //}
-
-    //bool CheckBelow(int type, int x, int y)
-    //{
-    //    if (type == 1)
-    //    {
-    //        if (levelMap[x - 1, y] == 2) return true;
-    //    }
-    //    else if (type == 2)
-    //    {
-    //        if (CheckTarget(type, levelMap[x - 1, y])) return true;
-    //    }
-    //    else if (type == 3)
-    //    {
-    //        if (levelMap[x - 1, y] == *) return true;
-    //    }
-    //    else if (type == 4)
-    //    {
-    //        if (levelMap[x - 1, y] == *) return true;
-    //    }
-    //    else if (type == 7)
-    //    {
-    //        if (levelMap[x - 1, y] == *) return true;
-    //    }
-    //    return false;
-    //}
-
-    //bool CheckTarget(int type, int target)
-    //{
-    //    if (type == 1)
-    //    {
-    //        if (target == 2) return true;
-    //    }
-    //    else if (type == 2)
-    //    {
-    //        switch (target)
-    //        {
-    //            case 1:
-    //            case 2:
-    //            case 7:
-    //                return true;
-    //        }
-    //    }
-    //    else if (type == 3)
-    //    {
-    //        switch(target)
-    //        {
-    //            case 
-    //        }
-    //        return false;
-    //    }
-    //    else if (type == 4)
-    //    {
-    //        return false;
-    //    }
-    //    else if (type == 7)
-    //    {
-    //        return false;
-    //    }
-    //}
-
-    //bool CheckTargetWithRotation(int type, int target, int x, int y)
-    //{
-    //    if (type == 1)
-    //    {
-    //        if (target == 2) return true;
-    //    }
-    //    else if (type == 2)
-    //    {
-    //        switch (target)
-    //        {
-    //            case 1:
-    //            case 2:
-    //            case 7:
-    //                return true;
-    //        }
-    //    }
-    //    else if (type == 3)
-    //    {
-    //        switch (target)
-    //        {
-    //            case
-    //        }
-    //    }
-    //    else if (type == 4)
-    //    {
-    //        return false;
-    //    }
-    //    else if (type == 7)
-    //    {
-    //        return false;
-    //    }
+    //    if (fullMap[i + 1, j] == 4) return true;
     //    return false;
     //}
 }
