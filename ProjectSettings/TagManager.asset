@@ -8,6 +8,7 @@ TagManager:
   - Dead
   - Grid
   - Tilemap
+  - ExitButton
   layers:
   - Default
   - TransparentFX
