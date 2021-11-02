@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PacStudentController : MonoBehaviour
 {
-    public enum Direction { Up, Left, Down, Right };
-    private Direction lastInput;
-    private Direction currentInput;
+    public enum Direction { Up, Left, Down, Right};
+    private PacMap.Direction lastInput;
+    private PacMap.Direction currentInput;
     public Tweener tweener;
     // Start is called before the first frame update
     void Start()
@@ -19,36 +19,67 @@ public class PacStudentController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            lastInput = Direction.Up;
+            lastInput = PacMap.Direction.Up;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.A))
         {
-            lastInput = Direction.Left;
+            lastInput = PacMap.Direction.Left;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
-            lastInput = Direction.Down;
+            lastInput = PacMap.Direction.Down;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
-            lastInput = Direction.Right;
+            lastInput = PacMap.Direction.Right;
         }
         //check lastInput
         //if moveable
-        currentInput = lastInput;
-        //move in direction
-        //if not
-        //check currentInput
-        //if moveable
-        //move in currentInput direction
-        //if not
-        //do nothing
+        if (!tweener.TweenExists(gameObject.transform))
+        {
+            if (PacMap.Validate(lastInput))
+            {
+                currentInput = lastInput;
+                //move in direction
+                moveInDirection(currentInput);
+                PacMap.UpdatePacPosition(currentInput);
+            }
+            //if not
+            //check currentInput
+            //if moveable
+            else if (PacMap.Validate(currentInput))
+            {
+                //move in currentInput direction
+                moveInDirection(currentInput);
+                PacMap.UpdatePacPosition(currentInput);
+            }
+            //if not
+            //do nothing
+        }
     }
 
-    private void moveInDirection()
+    private void moveInDirection(PacMap.Direction direction)
     {
-        SetRotation(180);
-        tweener.AddTween(gameObject.transform, gameObject.transform.position, gameObject.transform.position + new Vector3(0, 1, 0), 0.3f);
+        if (direction == PacMap.Direction.Up)
+        {
+            SetRotation(180);
+            tweener.AddTween(gameObject.transform, gameObject.transform.position, gameObject.transform.position + new Vector3(0, 1, 0), 0.3f);
+        }
+        else if (direction == PacMap.Direction.Left)
+        {
+            SetRotation(-90);
+            tweener.AddTween(gameObject.transform, gameObject.transform.position, gameObject.transform.position + new Vector3(-1, 0, 0), 0.3f);
+        }
+        else if (direction == PacMap.Direction.Down)
+        {
+            SetRotation(0);
+            tweener.AddTween(gameObject.transform, gameObject.transform.position, gameObject.transform.position + new Vector3(0, -1, 0), 0.3f);
+        }
+        else if (direction == PacMap.Direction.Right)
+        {
+            SetRotation(90);
+            tweener.AddTween(gameObject.transform, gameObject.transform.position, gameObject.transform.position + new Vector3(1, 0, 0), 0.3f);
+        }
     }
 
     private void SetRotation(int zRotation)
