@@ -9679,6 +9679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pacMoveSound: {fileID: 8300000, guid: a37fb934866a34d4f88759defd1d4b63, type: 3}
+  animator: {fileID: 1772888056}
 --- !u!82 &781958495
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11253,6 +11254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweener: {fileID: 1998655816}
+  animator: {fileID: 1772888056}
 --- !u!1001 &8267468886435947118
 PrefabInstance:
   m_ObjectHideFlags: 0

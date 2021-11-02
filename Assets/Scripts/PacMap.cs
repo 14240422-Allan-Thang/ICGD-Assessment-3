@@ -69,7 +69,6 @@ public class PacMap : MonoBehaviour
             {
                 int here = pacMap[i, j];
                 pacMap[i, j] = (here == 0 || here == 5 || here == 6) ? 1 : 2;
-                Debug.Log("(" + i + ", " + j + "): " + pacMap[i, j]);
             }
         }
     }
@@ -108,7 +107,6 @@ public class PacMap : MonoBehaviour
         }
         else if (direction == Direction.Right)
         {
-            Debug.Log(pacMap[pacPosX + 1, pacPosX]);
             if (pacMap[pacPosY, pacPosX + 1] == 1)
             {
                 return true;

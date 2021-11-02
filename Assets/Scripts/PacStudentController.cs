@@ -8,6 +8,7 @@ public class PacStudentController : MonoBehaviour
     private PacMap.Direction lastInput;
     private PacMap.Direction currentInput;
     public Tweener tweener;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,7 @@ public class PacStudentController : MonoBehaviour
             {
                 currentInput = lastInput;
                 //move in direction
+                animator.SetBool("Is Moving", true);
                 moveInDirection(currentInput);
                 PacMap.UpdatePacPosition(currentInput);
             }
@@ -50,9 +52,11 @@ public class PacStudentController : MonoBehaviour
             else if (PacMap.Validate(currentInput))
             {
                 //move in currentInput direction
+                animator.SetBool("Is Moving", true);
                 moveInDirection(currentInput);
                 PacMap.UpdatePacPosition(currentInput);
             }
+            else animator.SetBool("Is Moving", false);
             //if not
             //do nothing
         }
