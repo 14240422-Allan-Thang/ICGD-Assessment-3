@@ -9,6 +9,7 @@ public class PacStudentController : MonoBehaviour
     private PacMap.Direction currentInput;
     public Tweener tweener;
     public Animator animator;
+    public ParticleSystem dust;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +65,7 @@ public class PacStudentController : MonoBehaviour
 
     private void moveInDirection(PacMap.Direction direction)
     {
+        CreateDust();
         if (direction == PacMap.Direction.Up)
         {
             SetRotation(180);
@@ -89,5 +91,11 @@ public class PacStudentController : MonoBehaviour
     private void SetRotation(int zRotation)
     {
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, zRotation));
+    }
+
+    private void CreateDust()
+    {
+        dust.Play();
+        
     }
 }
