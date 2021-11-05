@@ -6,6 +6,7 @@ public class SoundEffects : MonoBehaviour
 {
     private AudioSource source;
     public AudioClip pacMoveSound;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +16,12 @@ public class SoundEffects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!source.isPlaying)
+        if (animator.GetBool("Is Moving"))
         {
-            source.PlayOneShot(pacMoveSound, 0.5f);
+            if (!source.isPlaying)
+            {
+                source.PlayOneShot(pacMoveSound, 0.5f);
+            }
         }
     }
 }

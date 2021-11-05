@@ -8,6 +8,7 @@ TagManager:
   - Dead
   - Grid
   - Tilemap
+  - ExitButton
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2100769611
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: HUD
+    uniqueID: 1240858141
     locked: 0
